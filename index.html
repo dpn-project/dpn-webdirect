@@ -15,50 +15,52 @@
         <input type="text" id="searchInput" placeholder="Search for something...">
         <button onclick="search()">Search</button>
         <p>---------</p>
+        <input type="text" id="DPNDomainSys" placeholder="Enter the URL with DPN Domain">
+        <button onclick="DPNDomain()">Go</button>
+        <p>---------</p>
         <p>Make sure if you use proxy by startpage.</p>
-        <p>Please use only this page in DPN Browser to search the internet or navigate to pages, because if you do it in the standard way, your IP address and connection will not be protected and hidden.</p>
-        <p>You can open DPN Secure Browsing at any time by clicking on the home icon near the page reload.</p>
+        <p>[!] Please use only this page in DPN Browser to search the internet or navigate to pages, because if you do it in the standard way, your IP address and connection will not be protected and hidden.</p>
+        <p>[!] You can open DPN Secure Browsing at any time by clicking on the home icon near the page reload.</p>
     </div>
     <style>
         body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #f0f0f0;
-}
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
 
-.container {
-    text-align: center;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+        .container {
+            text-align: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-input {
-    padding: 10px;
-    width: 80%;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+        input {
+            padding: 10px;
+            width: 80%;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
 
-button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #007BFF;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-}
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-button:hover {
-    background-color: #0056b3;
-}
-
+        button:hover {
+            background-color: #0056b3;
+        }
     </style>
     <script>
         function redirect() {
@@ -79,6 +81,28 @@ button:hover {
                 window.location.href = 'https://www.startpage.com/do/dsearch?q=' + encodeURIComponent(searchInput) + '&cat=web&language=english';
             } else {
                 alert('Please enter a search query.');
+            }
+        }
+
+        function DPNDomain() {
+            let dpnInput = document.getElementById('DPNDomainSys').value;
+            if (dpnInput) {
+                fetch('./dpn_domains.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        let realDomain = data.domains[dpnInput];
+                        if (realDomain) {
+                            window.location.href = 'http://' + realDomain;
+                        } else {
+                            alert('DPN domain not found.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error loading DPN domains:', error);
+                        alert('An error occurred while loading DPN domains.');
+                    });
+            } else {
+                alert('Please enter a DPN domain.');
             }
         }
     </script>
