@@ -11,6 +11,11 @@
         <h1>DPN Redirect</h1>
         <input type="text" id="urlInput" placeholder="Enter the URL">
         <button onclick="redirect()">Go</button>
+        <p>---------</p>
+        <input type="text" id="searchInput" placeholder="Search for something...">
+        <button onclick="search()">Search</button>
+        <p>---------</p>
+        <p>Make sure if you use proxy by startpage.</p>
     </div>
     <style>
         body {
@@ -63,6 +68,15 @@ button:hover {
                 window.location.href = urlInput;
             } else {
                 alert('Please enter a URL.');
+            }
+        }
+
+        function search() {
+            let searchInput = document.getElementById('searchInput').value;
+            if (searchInput) {
+                window.location.href = 'https://www.startpage.com/do/dsearch?q=' + encodeURIComponent(searchInput) + '&cat=web&language=english';
+            } else {
+                alert('Please enter a search query.');
             }
         }
     </script>
