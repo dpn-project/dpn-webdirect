@@ -87,12 +87,12 @@
         function DPNDomain() {
             let dpnInput = document.getElementById('DPNDomainSys').value;
             if (dpnInput) {
-                fetch('./dpn_domains.json')
+                fetch('https://dpn-data.onrender.com/domains.json')
                     .then(response => response.json())
                     .then(data => {
-                        let realDomain = data.domains[dpnInput];
+                        let realDomain = data[dpnInput];
                         if (realDomain) {
-                            window.location.href = 'http://' + realDomain;
+                            window.location.href = realDomain;
                         } else {
                             alert('DPN domain not found.');
                         }
